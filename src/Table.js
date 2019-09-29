@@ -49,19 +49,29 @@ this.props.changeStartTime(new Date())
       });
       return;
     }
+    let score = 0;
     const prevCard = newDeck[this.state.firstCardIndex];
     if(Math.floor(prevCard.cardId)==Math.floor(currentCard.cardId)){
       return
     }
+    const sameCard = (currentCard.src == prevCard.src)
+    if(sameCard){
+      this.props.addScore(100)
+    }else{
+      this.props.addScore(-10)
+    }    
     let disabled = 0;
     this.setState({ deck: newDeck, pauseGame: true });
     window.setTimeout(() => {
       newDeck.forEach((value) => {
         
         
-        if (currentCard.src == prevCard.src) {
+        if (sameCard) {
           currentCard.active = prevCard.active = false;
+          score += 100;
           disabled=2;
+        }else{
+          score -=10;
         }
 
         value.flipped = false;

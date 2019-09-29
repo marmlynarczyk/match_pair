@@ -1,6 +1,6 @@
 const levels = [
     {
-      time: 60,
+      time: 5,
       cards: 4,
       level: 0
     },

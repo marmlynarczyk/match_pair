@@ -4,13 +4,14 @@ import Modal from "./Modal.js";
 import ModalBg from "./ModalBg.js";
 import levels from "./Levels";
 import Table from "./Table";
+import ScoreTimeBar from "./ScoreTimeBar.js";
 
 class App extends React.Component {
   constructor(props) {
     super(props);
     this.levels = levels;
     this.state = {
-      currentLevel: 3,
+      currentLevel: 0,
       score: 0,
       playerName: "",
       showModal: true,
@@ -18,21 +19,37 @@ class App extends React.Component {
       isPlaying: false,
       isLevelChange: false,
       isGameEnd: false,
+      isRetry: false,
       gameStartTime: null,
-      gameEndTime: null
+      gameEndTime: null,
+      outOfTime:null
     };
     this.submitPlayerName = this.submitPlayerName.bind(this);
     this.hadlePlayerNameChange = this.hadlePlayerNameChange.bind(this);
     this.changeStartTime = this.changeStartTime.bind(this);
     this.changeLevel = this.changeLevel.bind(this);
     this.endGame = this.endGame.bind(this);
+    this.addScore = this.addScore.bind(this);
+    this.outOfTime = this.outOfTime.bind(this);
+  }
+  outOfTime(time){
+    window.setTimeout(()=>this.setState({showModal:true,isRetry:true}),time*1000)
+  }
+  addScore(number){
+    this.setState((prevState)=>{
+      if(this.state.score<=0&&number<0){
+        return
+      }
+      return{
+      score:prevState.score+number
+    }})
   }
   changeLevel() {
     this.setState({ isPlaying: false, gameEndTime: new Date() });
-      if(this.currentLevel>=this.levels.length){
-          this.endGame();
-          return;
-      }    
+    if (this.currentLevel >= this.levels.length) {
+      this.endGame();
+      return;
+    }
     window.setTimeout(() => {
       this.setState(prevState => {
         return {
@@ -43,9 +60,7 @@ class App extends React.Component {
       });
     }, 1000);
   }
-  endGame(){
-
-  }
+  endGame() {}
 
   changeStartTime(dateObj) {
     this.setState({ gameStartTime: dateObj });
@@ -58,6 +73,7 @@ class App extends React.Component {
       isStart: false,
       isPlaying: true
     });
+    this.outOfTime(this.levels[this.state.currentLevel].time);
   }
 
   hadlePlayerNameChange(event) {
@@ -75,11 +91,15 @@ class App extends React.Component {
         ></ModalBg>
       </Modal>
     ) : (
-      <Table
-        changeStartTime={this.changeStartTime}
-        cards={this.levels[this.state.currentLevel].cards}
-        changeLevel={this.changeLevel}
-      />
+      <div>
+        <ScoreTimeBar playerName={this.state.playerName} time={this.levels[this.state.currentLevel].time} score={this.state.score} />
+        <Table
+        addScore={this.addScore}
+          changeStartTime={this.changeStartTime}
+          cards={this.levels[this.state.currentLevel].cards}
+          changeLevel={this.changeLevel}
+        />
+      </div>
     );
   }
 }
