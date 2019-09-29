@@ -12,14 +12,22 @@
   "author": "",
   "license": "ISC",
   "devDependencies": {
+    "@babel/core": "^7.6.2",
+    "@babel/preset-react": "^7.0.0",
+    "babel-eslint": "^10.0.3",
+    "eslint": "^6.5.0",
     "eslint-config-prettier": "^6.3.0",
+    "eslint-plugin-emotion": "^10.0.14",
     "parcel-bundler": "^1.12.3"
   },
   "dependencies": {
+    "@emotion/babel-preset-css-prop": "^10.0.17",
     "@emotion/core": "^10.0.17",
     "@emotion/styled": "^10.0.17",
+    "npx": "^10.2.0",
     "reac": "0.0.0",
     "react": "^16.9.0",
-    "react-dom": "^16.9.0"
+    "react-dom": "^16.9.0",
+    "react-emotion": "^10.0.0"
   }
 }
