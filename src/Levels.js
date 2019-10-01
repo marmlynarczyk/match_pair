@@ -1,21 +1,21 @@
 const levels = [
     {
-      time: 5,
+      time: 20,
       cards: 4,
       level: 0
     },
     {
-      time: 40,
+      time: 20,
       cards: 4,
       level: 1
     },
     {
-      time: 60,
+      time: 20,
       cards: 6,
       level: 2
     },
     {
-      time: 40,
+      time: 20,
       cards: 6,
       level: 3
     },

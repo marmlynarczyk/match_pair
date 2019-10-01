@@ -14,3 +14,9 @@ body{
     background-size:cover;
     background-repeat: no-repeat;
 }
+#root{
+    display:flex;
+    justify-content: center;
+    align-content: center;
+    height:100%;
+}

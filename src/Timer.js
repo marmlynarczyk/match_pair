@@ -6,7 +6,7 @@ class Timer extends React.Component {
     constructor(props){
         super(props);
         this.state={
-            width:250
+            width:248
         }
     }
     componentDidMount(){

@@ -1,9 +1,12 @@
 import React from "react";
 /** @jsx jsx */ import { css, jsx, keyframes } from "@emotion/core";
 import EnterName from "./EnterName";
+import ChangeLevel from './ChangeLevel'
+import RetryLevel from "./RetryLevel"
 
 function ModalBg(props) {
   let modalContent;
+  
   if (props.isStart) {
     modalContent = (
       <EnterName
@@ -12,6 +15,28 @@ function ModalBg(props) {
         hadlePlayerNameChange={props.hadlePlayerNameChange}
       />
     );
+  }
+  if(props.isLevelChange){
+    modalContent=(
+      <ChangeLevel 
+      addScore={props.addScore}
+      score={props.score}
+      timeLeft={props.timeLeft}
+      startNewLevel={props.startNewLevel}
+      />
+      
+    )
+  }if(props.isRetry){    
+    modalContent=(
+    <RetryLevel 
+    retryLevel={props.retryLevel}
+    startNewGame={props.startNewGame}
+    />)    
+  }
+  if(props.isGameEnd){
+    modalContent=(
+      <></>
+    )
   }
   return (
     <div

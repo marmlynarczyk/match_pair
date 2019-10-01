@@ -9,16 +9,22 @@ class Table extends React.Component {
     this.createDeck = this.createDeck.bind(this);
     this.shuffle = this.shuffle.bind(this);
     this.flipCard = this.flipCard.bind(this);
+    this.intervalID = null;
+    
     this.state = {
       deck: this.createDeck(this.props.cards),
       noOfFlippedCards: 0,
       noOfDisabledCards: 0,
-      pauseGame: false
+      pauseGame: false,
+      timeOut: null
     };
   }
-componentDidMount(){
-this.props.changeStartTime(new Date())
-}
+  componentDidMount() {
+    this.props.changeStartTime(new Date());
+  }
+  componentWillUnmount() {
+    window.clearTimeout(this.timeOut);
+  }
 
   createDeck(noOfCards) {
     let newDeck = [];
@@ -49,47 +55,41 @@ this.props.changeStartTime(new Date())
       });
       return;
     }
-    let score = 0;
+    //SECOND CARD
     const prevCard = newDeck[this.state.firstCardIndex];
-    if(Math.floor(prevCard.cardId)==Math.floor(currentCard.cardId)){
-      return
+    if (Math.floor(prevCard.cardId) == Math.floor(currentCard.cardId)) {
+      return;
     }
-    const sameCard = (currentCard.src == prevCard.src)
-    if(sameCard){
-      this.props.addScore(100)
-    }else{
-      this.props.addScore(-10)
-    }    
+    const sameCard = currentCard.src == prevCard.src;
+    if (sameCard) {
+      this.props.addScore(100);
+    } else {
+      this.props.addScore(-10);
+    }
     let disabled = 0;
-    this.setState({ deck: newDeck, pauseGame: true });
-    window.setTimeout(() => {
-      newDeck.forEach((value) => {
-        
-        
+    this.intervalID = window.setTimeout(() => {
+      newDeck.forEach(value => {
         if (sameCard) {
           currentCard.active = prevCard.active = false;
-          score += 100;
-          disabled=2;
-        }else{
-          score -=10;
+          disabled = 2;
         }
-
         value.flipped = false;
       });
-      if(this.state.noOfDisabledCards+2>=this.props.cards){
+      if (this.state.noOfDisabledCards + 2 >= this.props.cards) {
         this.props.changeLevel();
         return;
       }
-      this.setState((prevState)=>{
-        return{
-        deck: newDeck,
-        noOfFlippedCards: 0,
-        firstCardIndex: null,
-        pauseGame: false,
-        noOfDisabledCards:prevState.noOfDisabledCards+disabled
-        
-      }});
-    }, 1000);
+      this.setState(prevState => {
+        return {
+          deck: newDeck,
+          noOfFlippedCards: 0,
+          firstCardIndex: null,
+          pauseGame: false,
+          noOfDisabledCards: prevState.noOfDisabledCards + disabled
+        };
+      });
+    }, 990);
+    this.setState({ deck: newDeck, pauseGame: true});
   }
 
   shuffle(array) {
