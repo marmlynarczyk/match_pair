@@ -1,12 +1,13 @@
 import React from "react";
 /** @jsx jsx */ import { css, jsx, keyframes } from "@emotion/core";
 import EnterName from "./EnterName";
-import ChangeLevel from './ChangeLevel'
-import RetryLevel from "./RetryLevel"
+import ChangeLevel from "./ChangeLevel";
+import RetryLevel from "./RetryLevel";
+import GameEnd from "./GameEnd";
 
 function ModalBg(props) {
   let modalContent;
-  
+
   if (props.isStart) {
     modalContent = (
       <EnterName
@@ -16,32 +17,35 @@ function ModalBg(props) {
       />
     );
   }
-  if(props.isLevelChange){
-    modalContent=(
-      <ChangeLevel 
-      addScore={props.addScore}
-      score={props.score}
-      timeLeft={props.timeLeft}
-      startNewLevel={props.startNewLevel}
+  if (props.isLevelChange) {
+    modalContent = (
+      <ChangeLevel
+        addScore={props.addScore}
+        score={props.score}
+        timeLeft={props.timeLeft}
+        startNewLevel={props.startNewLevel}
       />
-      
-    )
-  }if(props.isRetry){    
-    modalContent=(
-    <RetryLevel 
-    retryLevel={props.retryLevel}
-    startNewGame={props.startNewGame}
-    />)    
+    );
   }
-  if(props.isGameEnd){
-    modalContent=(
-      <></>
-    )
+  if (props.isRetry) {
+    modalContent = (
+      <RetryLevel
+        retryLevel={props.retryLevel}
+        startNewGame={props.startNewGame}
+      />
+    );
+  }
+  if (props.isGameEnd) {
+    modalContent = (
+      <GameEnd score={props.score} playerName={props.playerName} startNewGame={props.startNewGame}></GameEnd>
+    );
   }
   return (
     <div
       css={css`
         text-shadow: 0 0 1px #fff, 0 0 2px #0ff;
+        font-family: arial;
+        font-size: 2.1rem;
         color: white;
         width: 100%;
         height: 100vh;

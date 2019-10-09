@@ -18,24 +18,26 @@ class Timer extends React.Component {
         <div
           css={css`
           width: 250px;
-              height: 15px;
-            border: 2px solid yellow;
+              
+            border: 2px solid rgba(255,255,255,0.8);
             padding: 3px 3px;
             display:inline-block;
             border-radius: 10px;
+            box-shadow:0 0 2px #fff,inset 0 0 2px #fff, 0 0 4px #0ff,inset 0 0 4px #0ff;
           `}
         >
           <div
             css={css`
-              width: ${this.state.width}px;
+              width: ${this.state.width}px;             
+              box-shadow:0 0 2px #fff, 0 0 4px #0ff;
               height: 15px;
-              background-color: red;
+              background-color:rgba(255,255,255,0.95);
               border-radius: 10px; 
               transition: all linear ${this.props.time}s;             
             `}
           ></div>
         </div>
-        Time:{this.props.time}
+        
       </>
     );
   }

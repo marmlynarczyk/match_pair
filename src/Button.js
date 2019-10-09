@@ -3,7 +3,7 @@ import React from 'react';
 /** @jsx jsx */ import { css, jsx, keyframes } from "@emotion/core";
 
 function GlowButton (props){
-    return <button onClick={props.eventListener} css={css`margin-top: 20px;
+    return <button disabled={props.isDisabled} onClick={props.eventListener} css={css`margin-top: 20px;
     padding: 10px 45px;
     font-size: 20px;
     border-radius: 6px;
@@ -13,6 +13,7 @@ function GlowButton (props){
     border: 1px solid white;
     margin-left:auto;
     margin-right:auto;
+    min-height:48px;
     color: #fff;text-shadow: 0 0 1px #fff, 0 0 2px #0ff;${props.myStyles||""}`}>{props.text}</button>
 }
 

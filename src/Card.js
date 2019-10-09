@@ -8,7 +8,14 @@ transition: transform 0.7s;
 
 `;
 let imgSize = css`height:200px;
-width:150px;`
+width:150px;@media screen and (min-width:800px){
+    height:160px;
+width:120px;
+};@media screen and (min-height:1000px){
+    height:220px;
+    width:165px;
+}`
+
 class Card extends React.Component{
     constructor(props){
         super(props);        

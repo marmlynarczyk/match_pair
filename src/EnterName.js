@@ -36,10 +36,10 @@ function EnterName(props) {
               inset 0 0 2px #fff, inset 0 0 6px #0ff, 0 0 6px #0ff;
             border: 1px solid #fff;
             background-color: rgba(0, 0, 0, 0);
-            height: 40px;
+            height: 48px;
             width: 230px;
             color: #fff;
-            font-size: 21px;
+            font-size: 2.1rem;
             font-family: arial;
             letter-spacing: 2px;
             text-align: center;

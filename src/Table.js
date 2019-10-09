@@ -24,6 +24,8 @@ class Table extends React.Component {
   }
   componentWillUnmount() {
     window.clearTimeout(this.timeOut);
+    window.clearTimeout(this.intervalID);
+    
   }
 
   createDeck(noOfCards) {
@@ -46,7 +48,12 @@ class Table extends React.Component {
     }
     const newDeck = [...this.state.deck];
     const currentCard = newDeck[index];
-    currentCard.flipped = true;
+    if(currentCard.active){
+      currentCard.flipped = true;
+    }else{
+      return;
+    }
+    
     if (this.state.noOfFlippedCards == 0) {
       this.setState({
         deck: newDeck,
@@ -109,9 +116,13 @@ class Table extends React.Component {
     return (
       <div
         className={"table"}
-        css={css`
-          width: 600px;
-          height: 400px;
+        css={css`           
+          display: grid;
+          grid-gap:10px;
+          grid-template-columns: 1fr 1fr 1fr 1fr;    
+          @media screen and (min-width:850px){
+            ${this.state.deck.length>8?"grid-template-columns: 1fr 1fr 1fr 1fr 1fr":""};
+          }   
         `}
       >
         {this.state.deck.map((value, index) => (

@@ -1,6 +1,6 @@
 const levels = [
     {
-      time: 20,
+      time: 30,
       cards: 4,
       level: 0
     },
@@ -10,7 +10,7 @@ const levels = [
       level: 1
     },
     {
-      time: 20,
+      time: 30,
       cards: 6,
       level: 2
     },
@@ -20,42 +20,42 @@ const levels = [
       level: 3
     },
     {
-      time: 60,
+      time: 40,
       cards: 8,
       level: 4
     },
     {
-      time: 40,
+      time: 30,
       cards: 8,
       level: 5
     },
     {
-      time: 60,
+      time: 40,
       cards: 10,
       level: 6
     },
     {
-      time: 40,
+      time: 30,
       cards: 10,
       level: 7
     },
     {
-      time: 80,
+      time: 60,
       cards: 12,
       level: 8
     },
     {
-      time: 60,
+      time: 40,
       cards: 12,
       level: 9
     },
     {
-      time: 80,
+      time: 60,
       cards: 14,
       level: 10
     },
     {
-      time: 60,
+      time: 40,
       cards: 14,
       level: 11
     },
@@ -70,12 +70,12 @@ const levels = [
       level: 13
     },
     {
-      time: 100,
+      time: 80,
       cards: 18,
       level: 14
     },
     {
-      time: 80,
+      time: 60,
       cards: 18,
       level: 15
     },

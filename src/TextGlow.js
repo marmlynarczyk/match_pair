@@ -4,7 +4,7 @@ import React from 'react';
 
 function TextGlow (props){
     return <div css={css`color: white;
-    font-size: 32px;
+    font-size: 3.2rem;
     font-family: arial;
     text-shadow: 0 0 1px #fff, 0 0 2px #fff, 0 0 3px #0ff;${props.myStyles||""}`}>{props.text} </div>
 }

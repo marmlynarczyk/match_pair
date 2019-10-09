@@ -5,7 +5,8 @@ import ModalBg from "./ModalBg.js";
 import levels from "./Levels";
 import Table from "./Table";
 import ScoreTimeBar from "./ScoreTimeBar.js";
-/* eslint-disable */
+
+
 
 
 class App extends React.Component {
@@ -14,7 +15,7 @@ class App extends React.Component {
     this.levels = levels;
     this.outOfTimeID = null;
     this.state = {
-      currentLevel: 0,
+      currentLevel: 19,
       score: 0,
       playerName: "",
       showModal: true,
@@ -42,7 +43,8 @@ class App extends React.Component {
     this.outOfTimeID = window.setTimeout(()=>this.setState({showModal:true,isRetry:true}),this.levels[this.state.currentLevel].time*1000)
   }
   endGame() {
-    window.setTimeout(()=>this.setState({showModal:true,isGameEnd:true}),1000)    
+    console.log('endgame')
+    this.setState({showModal:true,isGameEnd:true});    
   }
   retryLevel(){
     let punishment = this.state.score-this.levels[this.state.currentLevel].cards*100;
@@ -52,14 +54,14 @@ class App extends React.Component {
     }else{
       correctedScore = 0;
     }
-    this.setState({
+    this.setState(()=>{return{
       score:correctedScore,
       showModal:false,
       isPlaying:true,
       gameStartTime:null,
       isRetry:false
-    })
-    this.outOfTime();
+    }},()=>this.outOfTime());
+    
   }
   startNewGame(){
     this.setState({
@@ -67,23 +69,27 @@ class App extends React.Component {
       score:0,
       isStart:true,
       isRetry:false,
-      isGameEnd:false,      
+      isGameEnd:false,   
+      showModal:true,
+      isLevelChange:false
+         
     })
   }
-  startNewLevel(){
+  startNewLevel(){      
     if(this.state.currentLevel+1>=this.levels.length){
       this.endGame();
+      return
     }
     this.setState((prevState)=>{
       return {
-        currentLevel:prevState.currentLevel++,
+        currentLevel:prevState.currentLevel+1,
         showModal:false,
         isPlaying:true,
         isLevelChange:false,
         gameStartTime:null,
         gameEndTime:null
       }
-    })
+    },this.outOfTime)
   }
   
   addScore(number){
@@ -95,7 +101,7 @@ class App extends React.Component {
       score:prevState.score+number
     }})
   }
-  changeLevel() {     
+  changeLevel() {       
     window.clearInterval(this.outOfTimeID);
     this.setState({ isPlaying: false, gameEndTime: new Date()});
     if (this.currentLevel >= this.levels.length) {
@@ -103,12 +109,9 @@ class App extends React.Component {
       return;
     }
     window.setTimeout(() => {
-      this.setState(prevState => {
-        return {
-          currentLevel: ++prevState.currentLevel,
+      this.setState({          
           showModal: true,
-          isLevelChange: true
-        };
+          isLevelChange: true        
       });
     }, 1000);
   }
@@ -121,26 +124,25 @@ class App extends React.Component {
   }
 
   submitPlayerName(name) {
-    this.setState({
+    this.setState(()=>{return{
       playerName: name,
       showModal: false,
       isStart: false,
       isPlaying: true
-    });
-    this.outOfTime();
+    }},()=>this.outOfTime());    
   }
 
   hadlePlayerNameChange(event) {
     this.setState({ playerName: event.target.value });
   }
 
-  render() {
+  render() {    
     let timeLeft=null;
     if(this.state.gameEndTime&&this.state.gameStartTime){
       timeLeft=this.levels[this.state.currentLevel].time-Math.floor((this.state.gameEndTime-this.state.gameStartTime)/1000);
     }
     return this.state.showModal ? (
-      <Modal>
+      <Modal >
         <ModalBg
           isStart={this.state.isStart}
           isLevelChange={this.state.isLevelChange}
@@ -160,7 +162,7 @@ class App extends React.Component {
         ></ModalBg>
       </Modal>
     ) : (
-      <div>
+      <div style={{display:"inline-block"}}>
         <ScoreTimeBar playerName={this.state.playerName} time={this.levels[this.state.currentLevel].time} score={this.state.score} currentLevel={this.state.currentLevel}/>
         <Table
         addScore={this.addScore}

@@ -11,17 +11,23 @@ function ScoreTimeBar(props) {
         color: #fff;
         text-shadow: 0 0 1px #fff, 0 0 2px #0ff;
         border-radius: 16px;
-          background-color: rgba(8, 66, 150, 0.8);
-          border: 1px solid #fff;
-          box-shadow: 0 0 2px #fff, 0 0 4px #fff, inset 0 0 4px #fff,
-            0 0 7px #fff, inset 0 0 7px #fff, 0 0 10px #0ff, inset 0 0 10px #0ff,
-            0 0 12px #0ff, inset 0 0 12px #0ff;
-            font-family:Arial;
-            display:flex;
-            width:500px;
-            padding:20px 80px;
-            justify-content:space-between;
-            align-items:center;
+        background-color: rgba(8, 66, 150, 0.8);
+        border: 1px solid #fff;
+        box-shadow: 
+        0 0 2px #fff,         
+        inset 0 0 2px #fff,
+        0 0 4px #fff,
+        inset 0 0 4px #fff,
+        0 0 10px #0ff,
+        inset 0 0 10px #0ff;      
+        font-family: Arial;
+        display: flex;
+        
+        padding: 20px 80px;
+        justify-content: space-between;
+        align-items: center;
+        font-size: 2rem;
+        margin-bottom:30px;
       `}
     >
       <CurrentLevel currentLevel={props.currentLevel} />
